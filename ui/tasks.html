@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>PULSE - Task Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --brand-primary: #6366f1;
+            --brand-secondary: #e0e7ff;
+            --brand-accent: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background-primary: #f8fafc;
+            --background-secondary: #ffffff;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .task-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .priority-high {
+            border-left: 4px solid #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+        }
+
+        .priority-medium {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%);
+        }
+
+        .priority-low {
+            border-left: 4px solid #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out forwards;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-primary)]">
+    <!-- Background decorative elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-10 blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-green-400 to-emerald-400 rounded-full opacity-10 blur-3xl" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-5 blur-3xl" style="animation-delay: -6s;"></div>
+    </div>
+
+    <div class="relative flex flex-col min-h-screen">
+        <!-- Enhanced Header -->
+        <header class="sticky top-0 z-20 glass-effect shadow-lg">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <button onclick="goBack()" class="group flex items-center justify-center w-12 h-12 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 hover:scale-105 shadow-md">
+                        <span class="material-symbols-outlined text-gray-700 group-hover:text-gray-900 transition-colors">arrow_back</span>
+                    </button>
+
+                    <div class="flex-1 text-center">
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            Task Manager
+                        </h1>
+                        <p class="text-sm text-gray-500 mt-1">Organize your productivity</p>
+                    </div>
+
+                    <button onclick="showAddTaskModal()" class="group flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 hover:scale-105 shadow-lg">
+                        <span class="material-symbols-outlined text-white text-lg">add</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 relative">
+            <!-- Task Filters -->
+            <div class="max-w-4xl mx-auto px-4 py-6">
+                <div class="glass-effect rounded-2xl p-4 mb-6">
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <button onclick="filterTasks('all')" id="filter-all" class="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium transition-all duration-300 hover:scale-105 shadow-md">
+                            All Tasks
+                        </button>
+                        <button onclick="filterTasks('high')" id="filter-high" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all duration-300 hover:scale-105 hover:bg-red-100 hover:text-red-700">
+                            High Priority
+                        </button>
+                        <button onclick="filterTasks('medium')" id="filter-medium" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all duration-300 hover:scale-105 hover:bg-yellow-100 hover:text-yellow-700">
+                            Medium Priority
+                        </button>
+                        <button onclick="filterTasks('low')" id="filter-low" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all duration-300 hover:scale-105 hover:bg-green-100 hover:text-green-700">
+                            Low Priority
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Statistics -->
+            <div class="max-w-4xl mx-auto px-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="glass-effect rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="total-tasks">0</div>
+                        <div class="text-sm text-gray-600">Total Tasks</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-green-600" id="completed-tasks">0</div>
+                        <div class="text-sm text-gray-600">Completed</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-red-600" id="high-priority">0</div>
+                        <div class="text-sm text-gray-600">High Priority</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="due-today">0</div>
+                        <div class="text-sm text-gray-600">Due Today</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Container -->
+            <div class="max-w-4xl mx-auto px-4 pb-8">
+                <div id="tasks-container" class="space-y-4">
+                    <!-- Tasks will be loaded here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="text-center py-12">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-blue-500">task_alt</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">No tasks yet</h3>
+                    <p class="text-gray-600 mb-6">Create your first task to get started with productivity!</p>
+                    <button onclick="showAddTaskModal()" class="btn-primary text-white font-semibold py-3 px-8 rounded-xl shadow-lg">
+                        <span class="flex items-center space-x-2">
+                            <span class="material-symbols-outlined">add</span>
+                            <span>Add Your First Task</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="add-task-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">Add New Task</h3>
+                    <button onclick="hideAddTaskModal()" class="text-gray-400 hover:text-gray-600">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <form id="add-task-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Task Title</label>
+                        <input type="text" id="task-title" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Enter task title...">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea id="task-description" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                  placeholder="Describe your task..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+                            <select id="task-priority" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Timeline</label>
+                            <select id="task-timeline" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="today">Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="this-week">This Week</option>
+                                <option value="next-week">Next Week</option>
+                                <option value="this-month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3 pt-4">
+                        <button type="button" onclick="hideAddTaskModal()"
+                                class="flex-1 py-3 px-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 btn-primary text-white py-3 px-4 rounded-xl">
+                            <span class="flex items-center justify-center space-x-2">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                                <span>Add Task</span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let currentFilter = 'all';
+
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-out-cubic',
+                    once: true
+                });
+            }
+            loadTasks();
+        });
+
+        function goBack() {
+            window.location.href = '/';
+        }
+
+        function showAddTaskModal() {
+            document.getElementById('add-task-modal').classList.remove('hidden');
+            document.getElementById('task-title').focus();
+        }
+
+        function hideAddTaskModal() {
+            document.getElementById('add-task-modal').classList.add('hidden');
+            document.getElementById('add-task-form').reset();
+        }
+
+        function filterTasks(filter) {
+            currentFilter = filter;
+
+            // Update filter button styles
+            document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+                btn.className = 'px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all duration-300 hover:scale-105';
+            });
+
+            const activeBtn = document.getElementById(`filter-${filter}`);
+            if (filter === 'all') {
+                activeBtn.className = 'px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium transition-all duration-300 hover:scale-105 shadow-md';
+            } else {
+                activeBtn.className = `px-6 py-2 rounded-full bg-${filter === 'high' ? 'red' : filter === 'medium' ? 'yellow' : 'green'}-100 text-${filter === 'high' ? 'red' : filter === 'medium' ? 'yellow' : 'green'}-700 font-medium transition-all duration-300 hover:scale-105`;
+            }
+
+            displayTasks();
+        }
+
+        function loadTasks() {
+            // Load tasks from localStorage or API
+            const savedTasks = localStorage.getItem('pulse_tasks');
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+            } else {
+                // Sample tasks for demonstration
+                tasks = [
+                    {
+                        id: 1,
+                        title: "Review project proposal",
+                        description: "Go through the Q3 project proposal and provide feedback",
+                        priority: "high",
+                        timeline: "today",
+                        completed: false,
+                        created: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        title: "Team meeting preparation",
+                        description: "Prepare agenda and materials for tomorrow's team meeting",
+                        priority: "medium",
+                        timeline: "tomorrow",
+                        completed: false,
+                        created: new Date().toISOString()
+                    },
+                    {
+                        id: 3,
+                        title: "Update documentation",
+                        description: "Update the API documentation with recent changes",
+                        priority: "low",
+                        timeline: "this-week",
+                        completed: true,
+                        created: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('pulse_tasks', JSON.stringify(tasks));
+            }
+
+            displayTasks();
+            updateStatistics();
+        }
+
+        function displayTasks() {
+            const container = document.getElementById('tasks-container');
+            const emptyState = document.getElementById('empty-state');
+
+            let filteredTasks = tasks;
+            if (currentFilter !== 'all') {
+                filteredTasks = tasks.filter(task => task.priority === currentFilter);
+            }
+
+            if (filteredTasks.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = filteredTasks.map((task, index) => `
+                <div class="task-card glass-effect rounded-2xl p-6 priority-${task.priority} fade-in"
+                     style="animation-delay: ${index * 0.1}s"
+                     data-aos="fade-up">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <input type="checkbox"
+                                       ${task.completed ? 'checked' : ''}
+                                       onchange="toggleTask(${task.id})"
+                                       class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                <h3 class="text-lg font-semibold ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}">
+                                    ${task.title}
+                                </h3>
+                            </div>
+
+                            ${task.description ? `
+                                <p class="text-gray-600 mb-3 ml-8">${task.description}</p>
+                            ` : ''}
+
+                            <div class="flex items-center space-x-4 ml-8">
+                                <div class="flex items-center space-x-1">
+                                    <span class="material-symbols-outlined text-sm ${task.priority === 'high' ? 'text-red-500' : task.priority === 'medium' ? 'text-yellow-500' : 'text-green-500'}">
+                                        flag
+                                    </span>
+                                    <span class="text-sm font-medium capitalize ${task.priority === 'high' ? 'text-red-600' : task.priority === 'medium' ? 'text-yellow-600' : 'text-green-600'}">
+                                        ${task.priority} priority
+                                    </span>
+                                </div>
+
+                                <div class="flex items-center space-x-1">
+                                    <span class="material-symbols-outlined text-sm text-blue-500">schedule</span>
+                                    <span class="text-sm text-blue-600 capitalize">${task.timeline.replace('-', ' ')}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="deleteTask(${task.id})"
+                                class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-full">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStatistics() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const highPriority = tasks.filter(t => t.priority === 'high').length;
+            const dueToday = tasks.filter(t => t.timeline === 'today').length;
+
+            document.getElementById('total-tasks').textContent = total;
+            document.getElementById('completed-tasks').textContent = completed;
+            document.getElementById('high-priority').textContent = highPriority;
+            document.getElementById('due-today').textContent = dueToday;
+        }
+
+        function toggleTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = !task.completed;
+                localStorage.setItem('pulse_tasks', JSON.stringify(tasks));
+                displayTasks();
+                updateStatistics();
+            }
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => t.id !== taskId);
+                localStorage.setItem('pulse_tasks', JSON.stringify(tasks));
+                displayTasks();
+                updateStatistics();
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('add-task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const newTask = {
+                id: Date.now(),
+                title: document.getElementById('task-title').value,
+                description: document.getElementById('task-description').value,
+                priority: document.getElementById('task-priority').value,
+                timeline: document.getElementById('task-timeline').value,
+                completed: false,
+                created: new Date().toISOString()
+            };
+
+            tasks.unshift(newTask); // Add to beginning of array
+            localStorage.setItem('pulse_tasks', JSON.stringify(tasks));
+
+            hideAddTaskModal();
+            displayTasks();
+            updateStatistics();
+
+            // Show success message
+            showNotification('Task added successfully!', 'success');
+        });
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-xl shadow-lg transform translate-x-full transition-transform duration-300 ${
+                type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+            } text-white max-w-sm`;
+
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : 'info'}</span>
+                    <span class="text-sm font-medium">${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 'n' || e.key === 'N') {
+                    e.preventDefault();
+                    showAddTaskModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

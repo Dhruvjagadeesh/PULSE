@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>PULSE - Emotion Check</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --brand-primary: #8b5cf6;
+            --brand-secondary: #f3e8ff;
+            --brand-accent: #a855f7;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background-primary: #faf5ff;
+            --background-secondary: #ffffff;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            --gradient-secondary: linear-gradient(135deg, #c084fc 0%, #d946ef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pulse-animation {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+            to { box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
+        }
+
+        .emotion-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .emotion-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--shadow-large);
+        }
+
+        .emotion-card.selected {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+            border: 3px solid var(--brand-primary);
+        }
+
+        .emotion-image {
+            transition: all 0.3s ease;
+        }
+
+        .emotion-card.selected .emotion-image {
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out forwards;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .selected-emotion-tag {
+            animation: popIn 0.3s ease-out forwards;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-primary)]">
+    <!-- Background decorative elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full opacity-10 blur-3xl floating-animation"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-rose-400 to-pink-400 rounded-full opacity-10 blur-3xl floating-animation" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-violet-400 to-purple-400 rounded-full opacity-5 blur-3xl floating-animation" style="animation-delay: -6s;"></div>
+    </div>
+
+    <div class="relative flex flex-col min-h-screen">
+        <!-- Enhanced Header -->
+        <header class="sticky top-0 z-20 glass-effect shadow-lg">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <button onclick="goBack()" class="group flex items-center justify-center w-12 h-12 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 hover:scale-105 shadow-md">
+                        <span class="material-symbols-outlined text-gray-700 group-hover:text-gray-900 transition-colors">arrow_back</span>
+                    </button>
+
+                    <div class="flex-1 text-center">
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                            Emotion Gallery
+                        </h1>
+                        <div class="mt-1 text-sm text-gray-500">
+                            <span id="selected-count">0</span> emotions selected
+                        </div>
+                    </div>
+
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg pulse-animation">
+                        <span class="material-symbols-outlined text-white text-lg">mood</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 relative">
+            <!-- Loading Screen -->
+            <div id="loading" class="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-10">
+                <div class="text-center max-w-md mx-auto p-8">
+                    <div class="relative mb-8">
+                        <div class="w-24 h-24 mx-auto bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-2xl pulse-animation">
+                            <span class="material-symbols-outlined text-white text-3xl">palette</span>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border-4 border-emerald-200 animate-spin"></div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Preparing Your Emotion Gallery</h3>
+                    <p class="text-gray-600 mb-4">Loading beautiful emotion images curated just for you<span class="loading-dots"></span></p>
+                    <div class="flex justify-center space-x-2">
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                        <div class="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emotion Container -->
+            <div id="emotion-container" class="hidden max-w-4xl mx-auto px-4 py-8">
+                <!-- Welcome Section -->
+                <div class="text-center mb-12 fade-in">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-6 shadow-lg">
+                        <span class="material-symbols-outlined text-white text-3xl">sentiment_satisfied</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">How are you feeling right now?</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Take your time to explore these emotion-evoking images. Select all that resonate with your current emotional state.
+                    </p>
+                </div>
+
+                <!-- Emotion Grid -->
+                <div id="emotion-grid" class="grid grid-cols-3 gap-4 mb-8 slide-in-up max-w-2xl mx-auto">
+                    <!-- Emotion images will be loaded here -->
+                </div>
+
+                <!-- Selection Summary -->
+                <div class="glass-effect rounded-2xl p-6 mb-8 bounce-in">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <span class="material-symbols-outlined text-emerald-500 mr-2">check_circle</span>
+                            Your Emotional Selection
+                        </h3>
+                        <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                            <span id="selection-count">0</span> selected
+                        </span>
+                    </div>
+
+                    <div id="selected-emotions" class="min-h-12 flex flex-wrap gap-3">
+                        <div class="flex items-center justify-center w-full py-8 text-gray-400">
+                            <div class="text-center">
+                                <span class="material-symbols-outlined text-4xl mb-2 block">mood</span>
+                                <p>Select emotions from the gallery above</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <div class="text-center">
+                    <button onclick="analyzeEmotions()" id="analyze-btn" class="btn-primary text-white font-semibold py-4 px-12 rounded-2xl shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none">
+                        <span class="flex items-center justify-center space-x-3">
+                            <span id="analyze-text">Analyze My Emotions</span>
+                            <span class="material-symbols-outlined">psychology</span>
+                        </span>
+                    </button>
+                    <p class="text-sm text-gray-500 mt-4">Select at least one emotion to continue</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let emotionImages = [];
+        let selectedEmotions = new Set();
+
+        function goBack() {
+            window.location.href = '/questions.html';
+        }
+
+        async function loadEmotionGrid() {
+            try {
+                const response = await fetch('/get-emotion-grid');
+                const data = await response.json();
+
+                if (data.success) {
+                    emotionImages = data.images;
+                    displayEmotionGrid();
+                } else {
+                    alert('Error loading emotion images');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error loading emotion images');
+            }
+        }
+
+        function displayEmotionGrid() {
+            const container = document.getElementById('emotion-grid');
+            container.innerHTML = '';
+
+            // Create 9 emotion combinations (3x3 grid)
+            const baseEmotions = ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust'];
+            const emotionCombinations = [];
+
+            // Generate combinations with percentages
+            for (let i = 0; i < 9; i++) {
+                const primaryEmotion = baseEmotions[Math.floor(Math.random() * baseEmotions.length)];
+                const secondaryEmotion = baseEmotions[Math.floor(Math.random() * baseEmotions.length)];
+                const primaryPercent = Math.floor(Math.random() * 40) + 60; // 60-100%
+                const secondaryPercent = 100 - primaryPercent;
+
+                emotionCombinations.push({
+                    primary: primaryEmotion,
+                    secondary: secondaryEmotion,
+                    primaryPercent: primaryPercent,
+                    secondaryPercent: secondaryPercent,
+                    color: getEmotionColor(primaryEmotion),
+                    id: i
+                });
+            }
+
+            emotionCombinations.forEach((combo, index) => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'emotion-card glass-effect rounded-xl overflow-hidden shadow-lg';
+                imageDiv.onclick = () => toggleEmotion(index, `${combo.primary}-${combo.secondary}`);
+                imageDiv.setAttribute('data-aos', 'fade-up');
+                imageDiv.style.animationDelay = `${index * 0.1}s`;
+
+                imageDiv.innerHTML = `
+                    <div class="relative aspect-square" style="background: linear-gradient(135deg, ${combo.color}20 0%, ${getEmotionColor(combo.secondary)}20 100%)">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <div class="text-2xl mb-2" style="color: ${combo.color}">${getEmotionIcon(combo.primary)}</div>
+                                <div class="text-xs font-semibold text-gray-700 capitalize mb-1">${combo.primary}</div>
+                                <div class="text-lg font-bold" style="color: ${combo.color}">${combo.primaryPercent}%</div>
+                                <div class="text-xs text-gray-500 mt-2">with</div>
+                                <div class="text-lg mt-1" style="color: ${getEmotionColor(combo.secondary)}">${getEmotionIcon(combo.secondary)}</div>
+                                <div class="text-xs font-semibold text-gray-700 capitalize mt-1">${combo.secondary}</div>
+                                <div class="text-sm font-bold" style="color: ${getEmotionColor(combo.secondary)}">${combo.secondaryPercent}%</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1 opacity-0 hover:opacity-100 transition-opacity duration-200">
+                            <span class="material-symbols-outlined text-gray-600 text-sm">add_circle</span>
+                        </div>
+                        <div id="selected-${index}" class="absolute top-2 right-2 bg-gray-800 rounded-full p-1 opacity-0 transition-all duration-300 transform scale-75">
+                            <span class="material-symbols-outlined text-white text-sm">check_circle</span>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(imageDiv);
+            });
+
+            // Hide loading and show content with animation
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('emotion-container').classList.remove('hidden');
+
+                // Initialize AOS
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-out-cubic',
+                    once: true
+                });
+            }, 500);
+        }
+
+        function getEmotionColor(emotion) {
+            const colors = {
+                'joy': '#fbbf24',
+                'sadness': '#3b82f6',
+                'anger': '#ef4444',
+                'fear': '#8b5cf6',
+                'surprise': '#f59e0b',
+                'disgust': '#10b981'
+            };
+            return colors[emotion] || '#6b7280';
+        }
+
+        function getEmotionIcon(emotion) {
+            const icons = {
+                'joy': '😊',
+                'sadness': '😢',
+                'anger': '😠',
+                'fear': '😨',
+                'surprise': '😲',
+                'disgust': '🤢'
+            };
+            return icons[emotion] || '😐';
+        }
+
+        function toggleEmotion(index, emotion) {
+            const selectedDiv = document.getElementById(`selected-${index}`);
+            const imageDiv = selectedDiv.closest('.emotion-card');
+
+            if (selectedEmotions.has(emotion)) {
+                // Deselect emotion
+                selectedEmotions.delete(emotion);
+                selectedDiv.classList.remove('opacity-100', 'scale-100');
+                selectedDiv.classList.add('scale-75');
+                imageDiv.classList.remove('selected', 'ring-4', 'ring-emerald-400');
+
+                // Update header count
+                document.getElementById('selected-count').textContent = selectedEmotions.size;
+                document.getElementById('selection-count').textContent = selectedEmotions.size;
+
+                updateSelectedEmotions();
+            } else {
+                // Select emotion
+                selectedEmotions.add(emotion);
+                selectedDiv.classList.add('opacity-100', 'scale-100');
+                selectedDiv.classList.remove('scale-75');
+                imageDiv.classList.add('selected', 'ring-4', 'ring-emerald-400');
+
+                // Update header count
+                document.getElementById('selected-count').textContent = selectedEmotions.size;
+                document.getElementById('selection-count').textContent = selectedEmotions.size;
+
+                updateSelectedEmotions();
+
+                // Show success animation
+                showSelectionFeedback(emotion);
+            }
+
+            // Update analyze button state
+            updateAnalyzeButton();
+        }
+
+        function updateSelectedEmotions() {
+            const container = document.getElementById('selected-emotions');
+
+            if (selectedEmotions.size === 0) {
+                container.innerHTML = `
+                    <div class="flex items-center justify-center w-full py-8 text-gray-400">
+                        <div class="text-center">
+                            <span class="material-symbols-outlined text-4xl mb-2 block">mood</span>
+                            <p>Select emotions from the gallery above</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            Array.from(selectedEmotions).forEach((emotion, index) => {
+                const emotionTag = document.createElement('span');
+                emotionTag.className = 'selected-emotion-tag bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer';
+                emotionTag.style.animationDelay = `${index * 0.1}s`;
+                emotionTag.innerHTML = `
+                    <span class="flex items-center space-x-2">
+                        <span>${emotion}</span>
+                        <button onclick="removeEmotion('${emotion}')" class="hover:bg-white/20 rounded-full p-1 transition-colors">
+                            <span class="material-symbols-outlined text-xs">close</span>
+                        </button>
+                    </span>
+                `;
+                container.appendChild(emotionTag);
+            });
+        }
+
+        function removeEmotion(emotion) {
+            selectedEmotions.delete(emotion);
+
+            // Update UI for all images with this emotion
+            emotionImages.forEach((image, index) => {
+                if (image.emotion === emotion) {
+                    const selectedDiv = document.getElementById(`selected-${index}`);
+                    const imageDiv = selectedDiv.closest('.emotion-card');
+
+                    selectedDiv.classList.remove('opacity-100', 'scale-100');
+                    selectedDiv.classList.add('scale-75');
+                    imageDiv.classList.remove('selected', 'ring-4', 'ring-emerald-400');
+                }
+            });
+
+            // Update counts and UI
+            document.getElementById('selected-count').textContent = selectedEmotions.size;
+            document.getElementById('selection-count').textContent = selectedEmotions.size;
+            updateSelectedEmotions();
+            updateAnalyzeButton();
+        }
+
+        function showSelectionFeedback(emotion) {
+            // Create floating notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 z-50 bg-emerald-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300';
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="material-symbols-outlined text-lg">check_circle</span>
+                    <span class="text-sm font-medium">${emotion} selected!</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+
+        function updateAnalyzeButton() {
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const analyzeText = document.getElementById('analyze-text');
+
+            if (selectedEmotions.size === 0) {
+                analyzeBtn.classList.add('disabled:opacity-50', 'disabled:cursor-not-allowed', 'disabled:hover:transform-none');
+                analyzeText.textContent = 'Select Emotions First';
+            } else {
+                analyzeBtn.classList.remove('disabled:opacity-50', 'disabled:cursor-not-allowed', 'disabled:hover:transform-none');
+                analyzeText.textContent = `Analyze ${selectedEmotions.size} Emotion${selectedEmotions.size > 1 ? 's' : ''}`;
+            }
+        }
+
+        async function analyzeEmotions() {
+            if (selectedEmotions.size === 0) {
+                alert('Please select at least one emotion');
+                return;
+            }
+
+            const questionAnswers = JSON.parse(localStorage.getItem('question_answers') || '{}');
+
+            const analyzeBtn = document.getElementById('analyze-btn');
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = 'Analyzing...';
+
+            try {
+                const response = await fetch('/analyze-emotions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        selected_emotions: Array.from(selectedEmotions),
+                        question_answers: questionAnswers
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store analysis results and redirect to results page
+                    localStorage.setItem('analysis_results', JSON.stringify(data.analysis));
+                    window.location.href = '/results.html';
+                } else {
+                    alert('Error analyzing emotions');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error analyzing emotions');
+            } finally {
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = 'Analyze My Emotions';
+            }
+        }
+
+        // Load emotion grid when page loads
+        document.addEventListener('DOMContentLoaded', loadEmotionGrid);
+    </script>
+</body>
+</html>

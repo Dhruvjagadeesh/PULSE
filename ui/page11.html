@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PULSE Insights</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #13ec13;
+      --foreground-color: #0d130d;
+      --secondary-foreground-color: #556255;
+      --background-color: #fafcfa;
+      --muted-background: #f0f4f0;
+      --border-color: #e4e9e4;
+    }
+    body {
+      font-family: 'Lexend', sans-serif;
+      background-color: var(--background-color);
+    }
+    .active-nav {
+      color: #13ec13;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-[var(--foreground-color)]">
+<div class="relative flex size-full min-h-screen flex-col justify-between group/design-root overflow-x-hidden">
+<div class="flex-grow">
+<header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<button class="flex size-10 items-center justify-center rounded-full">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold">Insights</h1>
+<div class="size-10"></div>
+</div>
+<div class="px-4 pb-3 pt-1">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-[var(--muted-background)] p-1">
+<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-medium transition-colors has-[:checked]:bg-white has-[:checked]:text-[var(--foreground-color)] has-[:checked]:shadow-sm text-[var(--secondary-foreground-color)]">
+<span class="truncate">Weekly</span>
+<input checked="" class="sr-only" name="time-range" type="radio" value="Weekly"/>
+</label>
+<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-medium transition-colors has-[:checked]:bg-white has-[:checked]:text-[var(--foreground-color)] has-[:checked]:shadow-sm text-[var(--secondary-foreground-color)]">
+<span class="truncate">Monthly</span>
+<input class="sr-only" name="time-range" type="radio" value="Monthly"/>
+</label>
+</div>
+</div>
+</header>
+<main class="p-4 space-y-6">
+<div class="rounded-2xl border border-[var(--border-color)] bg-white p-5">
+<div class="flex items-start justify-between">
+<div>
+<p class="text-sm font-medium text-[var(--secondary-foreground-color)]">Mood Trend</p>
+<p class="text-3xl font-bold text-[var(--foreground-color)]">+12%</p>
+<p class="text-sm text-[var(--secondary-foreground-color)]">from last week</p>
+</div>
+<span class="material-symbols-outlined text-2xl text-[var(--secondary-foreground-color)]">trending_up</span>
+</div>
+<div class="mt-4 h-48">
+<svg fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 400 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="moodGradient" x1="200" x2="200" y1="0" y2="150">
+<stop stop-color="#13ec13" stop-opacity="0.2"></stop>
+<stop offset="1" stop-color="#13ec13" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<path d="M0 109C30 109 30 21 60 21C90 21 90 41 120 41C150 41 150 93 180 93C210 93 210 33 240 33C270 33 270 101 300 101C330 101 330 61 360 61C390 61 390 121 400 121" stroke="#13ec13" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M0 109C30 109 30 21 60 21C90 21 90 41 120 41C150 41 150 93 180 93C210 93 210 33 240 33C270 33 270 101 300 101C330 101 330 61 360 61C390 61 390 121 400 121V150H0V109Z" fill="url(#moodGradient)"></path>
+</svg>
+</div>
+<div class="flex justify-around text-xs font-medium text-[var(--secondary-foreground-color)] mt-2">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<div class="rounded-2xl border border-[var(--border-color)] bg-white p-5">
+<div class="flex items-start justify-between">
+<div>
+<p class="text-sm font-medium text-[var(--secondary-foreground-color)]">Task Completion</p>
+<p class="text-3xl font-bold text-[var(--foreground-color)]">85%</p>
+<p class="text-sm text-green-600 font-medium">+5% from last week</p>
+</div>
+<span class="material-symbols-outlined text-2xl text-[var(--secondary-foreground-color)]">checklist</span>
+</div>
+<div class="mt-4 grid grid-cols-7 gap-3 h-40 items-end px-2">
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 40%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">M</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 70%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">T</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 90%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">W</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 80%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">T</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 60%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">F</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 50%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">S</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-[var(--muted-background)] rounded-full h-full flex items-end"><div class="bg-[var(--primary-color)] w-full rounded-full" style="height: 75%;"></div></div>
+<p class="text-xs font-medium text-[var(--secondary-foreground-color)]">S</p>
+</div>
+</div>
+</div>
+<div class="rounded-2xl border border-[var(--border-color)] bg-white p-5">
+<div class="flex items-start justify-between">
+<div>
+<p class="text-sm font-medium text-[var(--secondary-foreground-color)]">Mood &amp; Productivity</p>
+<p class="text-3xl font-bold text-[var(--foreground-color)]">Positive Corr.</p>
+<p class="text-sm text-[var(--secondary-foreground-color)]">Higher mood, more done</p>
+</div>
+<span class="material-symbols-outlined text-2xl text-[var(--secondary-foreground-color)]">psychology</span>
+</div>
+<div class="mt-4 space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-2xl">😊</span>
+<div class="h-3 flex-1 rounded-full bg-[var(--muted-background)]"><div class="h-3 rounded-full bg-[var(--primary-color)]" style="width: 85%;"></div></div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-2xl">😐</span>
+<div class="h-3 flex-1 rounded-full bg-[var(--muted-background)]"><div class="h-3 rounded-full bg-yellow-400" style="width: 50%;"></div></div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-2xl">😔</span>
+<div class="h-3 flex-1 rounded-full bg-[var(--muted-background)]"><div class="h-3 rounded-full bg-blue-400" style="width: 20%;"></div></div>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-bold px-1 pb-2 pt-4">Personalized Insights</h2>
+<div class="flex items-start gap-4 rounded-2xl border border-blue-200 bg-blue-50 p-4">
+<span class="material-symbols-outlined text-2xl text-blue-600 mt-1">lightbulb</span>
+<p class="text-sm text-blue-800">
+              Based on your data, you're most productive when you're in a positive mood. Consider scheduling challenging tasks for times when you typically feel happier to maximize your output.
+            </p>
+</div>
+</div>
+</main>
+</div>
+<footer class="sticky bottom-0 z-10 bg-white/80 backdrop-blur-sm">
+<div class="flex justify-around border-t border-[var(--border-color)] py-2">
+<a class="flex flex-col items-center justify-end gap-1 text-[var(--secondary-foreground-color)]" href="#">
+<span class="material-symbols-outlined">home</span>
+<p class="text-xs font-medium">Home</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-[var(--secondary-foreground-color)]" href="#">
+<span class="material-symbols-outlined">check_box</span>
+<p class="text-xs font-medium">Tasks</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-[var(--primary-color)]" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-xs font-medium">Insights</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-[var(--secondary-foreground-color)]" href="#">
+<span class="material-symbols-outlined">person</span>
+<p class="text-xs font-medium">Profile</p>
+</a>
+</div>
+</footer>
+</div>
+
+</body></html>

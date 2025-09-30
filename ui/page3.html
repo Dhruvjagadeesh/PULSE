@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #8b5cf6;
+        --secondary-color: #a855f7;
+        --accent-color: #c084fc;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fade-in 0.6s ease-out forwards;
+        opacity: 0;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
+<div class="relative flex size-full min-h-screen flex-col justify-between group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+<!-- Animated background elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
+    <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-tr from-indigo-400 to-purple-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-10 animate-pulse" style="animation-delay: 2s;"></div>
+</div>
+
+<div class="flex-grow relative z-10">
+<header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<button class="text-purple-700 flex size-10 shrink-0 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-all duration-300 hover:scale-110 shadow-lg">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex-1 text-center">
+    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Your Routine</h1>
+    <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mt-2"></div>
+</div>
+</div>
+</header>
+<main class="px-6 pt-8 pb-12 space-y-8">
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.1s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">bedtime</span>
+    Typical sleep hours
+</label>
+<div class="relative">
+    <select class="form-select w-full appearance-none rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 pl-12 pr-10 text-base font-normal text-purple-900 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="sleep-hours">
+    <option value="8">8 hours</option>
+    <option value="7">7 hours</option>
+    <option value="6">6 hours</option>
+    <option value="5">5 hours or less</option>
+    <option value="9">9 hours or more</option>
+    </select>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">bedtime</span>
+    </div>
+    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 pointer-events-none">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
+</div>
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.2s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">wb_sunny</span>
+    Most energetic time of day
+</label>
+<div class="relative">
+    <select class="form-select w-full appearance-none rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 pl-12 pr-10 text-base font-normal text-purple-900 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="energetic-time">
+    <option value="Morning">🌅 Morning</option>
+    <option value="Afternoon">☀️ Afternoon</option>
+    <option value="Evening">🌆 Evening</option>
+    <option value="Night">🌙 Night</option>
+    </select>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">wb_sunny</span>
+    </div>
+    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 pointer-events-none">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
+</div>
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.3s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">coffee</span>
+    How many mins/hours of break do you prefer?
+</label>
+<div class="space-y-3">
+<div class="relative">
+    <select class="form-select w-full appearance-none rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 pl-12 pr-10 text-base font-normal text-purple-900 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="break-duration">
+    <option value="15 mins">⏱️ 15 minutes</option>
+    <option value="30 mins">⏱️ 30 minutes</option>
+    <option value="45 mins">⏱️ 45 minutes</option>
+    <option value="1 hour">🕐 1 hour</option>
+    <option value="1.5 hours">🕐 1.5 hours</option>
+    <option value="2 hours">🕐 2 hours</option>
+    </select>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">coffee</span>
+    </div>
+    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 pointer-events-none">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
+<p class="text-sm text-purple-600 font-medium">Based on task heaviness:</p>
+<div class="grid grid-cols-2 gap-3">
+<label class="flex items-center space-x-3 p-4 rounded-xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm hover:bg-purple-50 hover:border-purple-300 transition-all duration-300 cursor-pointer group">
+<input type="radio" name="task-heaviness" value="light" class="text-purple-600 focus:ring-purple-500">
+<span class="text-sm text-purple-800 font-medium group-hover:text-purple-900">🪶 Light tasks</span>
+</label>
+<label class="flex items-center space-x-3 p-4 rounded-xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm hover:bg-purple-50 hover:border-purple-300 transition-all duration-300 cursor-pointer group">
+<input type="radio" name="task-heaviness" value="moderate" class="text-purple-600 focus:ring-purple-500">
+<span class="text-sm text-purple-800 font-medium group-hover:text-purple-900">⚖️ Moderate tasks</span>
+</label>
+<label class="flex items-center space-x-3 p-4 rounded-xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm hover:bg-purple-50 hover:border-purple-300 transition-all duration-300 cursor-pointer group">
+<input type="radio" name="task-heaviness" value="heavy" class="text-purple-600 focus:ring-purple-500">
+<span class="text-sm text-purple-800 font-medium group-hover:text-purple-900">🏋️ Heavy tasks</span>
+</label>
+<label class="flex items-center space-x-3 p-4 rounded-xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm hover:bg-purple-50 hover:border-purple-300 transition-all duration-300 cursor-pointer group">
+<input type="radio" name="task-heaviness" value="intensive" class="text-purple-600 focus:ring-purple-500">
+<span class="text-sm text-purple-800 font-medium group-hover:text-purple-900">🔥 Intensive tasks</span>
+</label>
+</div>
+</div>
+</div>
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.4s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">beach_access</span>
+    Happy place
+</label>
+<div class="relative">
+    <textarea class="form-textarea w-full resize-none rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm min-h-36 p-4 pl-12 text-base font-normal text-purple-900 placeholder:text-purple-400 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="happy-place" placeholder="Describe your happy place, e.g., a quiet beach at sunset..."></textarea>
+    <div class="absolute left-3 top-4 text-purple-500">
+        <span class="material-symbols-outlined text-xl">beach_access</span>
+    </div>
+</div>
+</div>
+</main>
+</div>
+<footer class="sticky bottom-0 bg-white/80 backdrop-blur-sm pb-safe relative z-10">
+<div class="px-6 py-4">
+<button onclick="submitPage3()" class="w-full h-14 px-5 rounded-2xl bg-gradient-to-r from-purple-500 via-purple-600 to-pink-500 text-white text-lg font-bold tracking-wide hover:from-purple-600 hover:via-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-purple-500/25 relative overflow-hidden group">
+    <span class="relative z-10 flex items-center justify-center">
+        Continue
+        <span class="material-symbols-outlined ml-2 text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+    </span>
+    <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+</div>
+</footer>
+</div>
+<style>
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
+
+<script>
+function submitPage3() {
+  // Get selected task heaviness
+  const taskHeaviness = document.querySelector('input[name="task-heaviness"]:checked');
+
+  const formData = {
+    sleep_hours: document.getElementById('sleep-hours').value,
+    energetic_time: document.getElementById('energetic-time').value,
+    break_duration: document.getElementById('break-duration').value,
+    task_heaviness: taskHeaviness ? taskHeaviness.value : null,
+    happy_place: document.getElementById('happy-place').value
+  };
+
+  fetch('/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      window.location.href = '/page/4';
+    } else {
+      alert('Error updating profile');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Error updating profile');
+  });
+}
+</script>
+
+</body></html>

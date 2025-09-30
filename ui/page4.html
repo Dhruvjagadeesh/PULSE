@@ -1,0 +1,162 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #f9f506;
+      }
+      .form-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23181811' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-white font-spline-sans text-[#181811]">
+<div class="flex h-screen flex-col">
+<header class="sticky top-0 z-10 bg-white px-4 pt-6">
+<div class="relative flex items-center justify-center">
+<button class="absolute left-0 text-[#181811]">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-lg font-bold">About You</h1>
+</div>
+<div class="mt-4 h-1 w-full bg-gray-200">
+<div class="h-1 bg-[var(--primary-color)]" style="width: 25%"></div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-6 pt-8 pb-4">
+<div class="space-y-8">
+<div>
+<label class="block text-xl font-bold" for="goal-select">What are your goals?</label>
+<p class="text-sm text-gray-500 mt-1">This helps us tailor your PULSE experience.</p>
+<div class="mt-4 space-y-4">
+<select class="form-select w-full rounded-xl border-gray-300 bg-gray-50 p-4 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" id="goal-select">
+<option selected="">Select a goal</option>
+<option value="productivity">Improve Productivity</option>
+<option value="wellness">Enhance Wellness</option>
+<option value="balance">Better Work-Life Balance</option>
+</select>
+<input class="w-full rounded-xl border-gray-300 bg-gray-50 p-4 placeholder:text-gray-400 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="Or define your own" type="text"/>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-bold">Health</h2>
+<p class="text-sm text-gray-500 mt-1">Select any relevant health issues.</p>
+<div class="mt-4 grid grid-cols-2 gap-4">
+<label class="flex items-center space-x-3 rounded-lg border border-gray-200 p-4 has-[:checked]:border-[var(--primary-color)] has-[:checked]:bg-yellow-50">
+<input class="h-5 w-5 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" name="health-issue" type="checkbox" value="anxiety"/>
+<span>Anxiety</span>
+</label>
+<label class="flex items-center space-x-3 rounded-lg border border-gray-200 p-4 has-[:checked]:border-[var(--primary-color)] has-[:checked]:bg-yellow-50">
+<input class="h-5 w-5 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" name="health-issue" type="checkbox" value="depression"/>
+<span>Depression</span>
+</label>
+<label class="flex items-center space-x-3 rounded-lg border border-gray-200 p-4 has-[:checked]:border-[var(--primary-color)] has-[:checked]:bg-yellow-50">
+<input class="h-5 w-5 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" name="health-issue" type="checkbox" value="adhd"/>
+<span>ADHD</span>
+</label>
+<label class="flex items-center space-x-3 rounded-lg border border-gray-200 p-4 has-[:checked]:border-[var(--primary-color)] has-[:checked]:bg-yellow-50">
+<input class="h-5 w-5 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" name="health-issue" type="checkbox" value="insomnia"/>
+<span>Insomnia</span>
+</label>
+</div>
+<div class="mt-4">
+<input class="w-full rounded-xl border-gray-300 bg-gray-50 p-4 placeholder:text-gray-400 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="Other health issue" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xl font-bold" for="relationship-status">Relationship</label>
+<select class="form-select mt-4 w-full rounded-xl border-gray-300 bg-gray-50 p-4 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" id="relationship-status">
+<option selected="">Select a relationship status</option>
+<option value="single">Single</option>
+<option value="in-relationship">In a relationship</option>
+<option value="married">Married</option>
+<option value="complicated">It's complicated</option>
+</select>
+</div>
+<div>
+<label class="block text-xl font-bold" for="occupation">Occupation</label>
+<select class="form-select mt-4 w-full rounded-xl border-gray-300 bg-gray-50 p-4 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" id="occupation">
+<option selected="">Select an occupation</option>
+<option value="student">Student</option>
+<option value="employed">Employed</option>
+<option value="unemployed">Unemployed</option>
+<option value="self-employed">Self-employed</option>
+</select>
+<div class="mt-4 space-y-4 hidden" id="student-fields">
+<input class="w-full rounded-xl border-gray-300 bg-gray-50 p-4 placeholder:text-gray-400 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="School Name" type="text"/>
+<input class="w-full rounded-xl border-gray-300 bg-gray-50 p-4 placeholder:text-gray-400 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="Major" type="text"/>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white px-6 pb-6 pt-4">
+<button onclick="submitPage4()" class="w-full rounded-full bg-[var(--primary-color)] py-4 text-center font-bold text-[#181811]">
+          Next
+        </button>
+</footer>
+</div>
+<script>
+      const occupationSelect = document.getElementById('occupation');
+      const studentFields = document.getElementById('student-fields');
+      occupationSelect.addEventListener('change', (event) => {
+        if(event.target.value === 'student') {
+          studentFields.classList.remove('hidden');
+        } else {
+          studentFields.classList.add('hidden');
+        }
+      });
+
+      function submitPage4() {
+        // Get selected health issues
+        const healthIssues = Array.from(document.querySelectorAll('input[name="health-issue"]:checked')).map(cb => cb.value);
+        const otherHealthIssue = document.querySelector('input[placeholder="Other health issue"]').value;
+        if (otherHealthIssue) healthIssues.push(otherHealthIssue);
+
+        const formData = {
+          goals: document.getElementById('goal-select').value,
+          health_issues: healthIssues,
+          relationship_status: document.getElementById('relationship-status').value,
+          occupation: document.getElementById('occupation').value,
+          school_name: document.querySelector('input[placeholder="School Name"]')?.value || '',
+          major: document.querySelector('input[placeholder="Major"]')?.value || ''
+        };
+
+        fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.href = '/questions.html';
+          } else {
+            alert('Error updating profile');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error updating profile');
+        });
+      }
+    </script>
+
+</body></html>

@@ -1,0 +1,347 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #8b5cf6;
+        --secondary-color: #a855f7;
+        --accent-color: #c084fc;
+        --background-gradient: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fade-in 0.6s ease-out forwards;
+        opacity: 0;
+      }
+    </style>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
+<div class="relative flex size-full min-h-screen flex-col justify-between group/design-root" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+<!-- Animated background elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
+    <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-tr from-indigo-400 to-purple-400 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-10 animate-pulse" style="animation-delay: 2s;"></div>
+</div>
+
+<div class="flex flex-col relative z-10">
+<header class="flex items-center justify-between p-4">
+<button class="flex items-center justify-center size-10 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-all duration-300 hover:scale-110 shadow-lg">
+<span class="material-symbols-outlined text-purple-700">arrow_back</span>
+</button>
+<div class="flex-1 text-center">
+    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">About You</h1>
+    <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mt-2"></div>
+</div>
+<div class="w-10"></div>
+</header>
+<main class="p-4 space-y-6">
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.1s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">person</span>
+    Nickname
+</label>
+<div class="relative">
+    <input class="form-input w-full rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 px-4 pl-12 placeholder:text-purple-400 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="nickname" placeholder="Enter your nickname" value=""/>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">person</span>
+    </div>
+</div>
+</div>
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.2s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">badge</span>
+    Full Name
+</label>
+<div class="relative">
+    <input class="form-input w-full rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 px-4 pl-12 placeholder:text-purple-400 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="name" placeholder="Enter your full name" value=""/>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">badge</span>
+    </div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.3s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">cake</span>
+    Age
+</label>
+<div class="relative">
+    <input class="form-input w-full rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 px-4 pl-12 placeholder:text-purple-400 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg" id="age" placeholder="25" type="number" value=""/>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">cake</span>
+    </div>
+</div>
+</div>
+<div class="space-y-2 animate-fade-in" style="animation-delay: 0.4s;">
+<label class="text-purple-800 font-semibold flex items-center">
+    <span class="material-symbols-outlined text-purple-600 mr-2 text-lg">people</span>
+    Gender
+</label>
+<div class="relative">
+    <select class="form-select w-full rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm h-14 px-4 pl-12 pr-10 text-purple-900 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 hover:border-purple-300 hover:shadow-lg appearance-none" id="gender">
+    <option selected="" value="">Select gender</option>
+    <option value="female">👩 Female</option>
+    <option value="male">👨 Male</option>
+    <option value="other">🌈 Other</option>
+    <option value="prefer_not_to_say">🤐 Prefer not to say</option>
+    </select>
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500">
+        <span class="material-symbols-outlined text-xl">people</span>
+    </div>
+    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 pointer-events-none">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
+</div>
+</div>
+<div class="hidden" id="period-tracker-section">
+<div class="flex items-center justify-between bg-zinc-50 rounded-xl p-4">
+<p class="text-zinc-900 font-medium">Track my period</p>
+<label class="relative flex h-8 w-14 cursor-pointer items-center rounded-full bg-zinc-200 p-1 transition-colors has-[:checked]:bg-[var(--primary-color)]">
+<div class="size-6 rounded-full bg-white shadow-md transition-transform duration-300 transform translate-x-0 has-[:checked]:translate-x-6"></div>
+<input class="sr-only" id="period-toggle" type="checkbox"/>
+</label>
+</div>
+<div class="hidden mt-4" id="calendar-container">
+<div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
+<div class="w-full max-w-sm">
+<div class="flex items-center justify-between mb-4">
+<button id="prev-month" class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+<span class="material-symbols-outlined text-gray-600">chevron_left</span>
+</button>
+<p id="current-month-year" class="text-gray-900 text-lg font-semibold">August 2024</p>
+<button id="next-month" class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+<span class="material-symbols-outlined text-gray-600">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-7 gap-y-2 text-center text-sm mb-2">
+<div class="font-medium text-gray-500">S</div>
+<div class="font-medium text-gray-500">M</div>
+<div class="font-medium text-gray-500">T</div>
+<div class="font-medium text-gray-500">W</div>
+<div class="font-medium text-gray-500">T</div>
+<div class="font-medium text-gray-500">F</div>
+<div class="font-medium text-gray-500">S</div>
+</div>
+<div id="calendar-grid" class="grid grid-cols-7 gap-y-2 text-center">
+<!-- Calendar days will be generated here -->
+</div>
+<div class="mt-4 p-3 bg-blue-50 rounded-lg">
+<p class="text-sm text-blue-800">
+<strong>Selected dates:</strong> <span id="selected-dates">None</span>
+</p>
+<p class="text-xs text-blue-600 mt-1">
+Click on dates to select your period start and end dates
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<footer class="p-4 pb-8 relative z-10">
+<button onclick="submitPage2()" class="w-full h-14 px-5 rounded-2xl bg-gradient-to-r from-purple-500 via-purple-600 to-pink-500 text-white text-lg font-bold tracking-wide hover:from-purple-600 hover:via-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-purple-500/25 relative overflow-hidden group">
+    <span class="relative z-10 flex items-center justify-center">
+        Continue
+        <span class="material-symbols-outlined ml-2 text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+    </span>
+    <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+</footer>
+</div>
+<script>
+      const genderSelect = document.getElementById('gender');
+      const periodTrackerSection = document.getElementById('period-tracker-section');
+      const periodToggle = document.getElementById('period-toggle');
+      const calendarContainer = document.getElementById('calendar-container');
+
+      // Calendar variables
+      let currentDate = new Date();
+      let selectedStartDate = null;
+      let selectedEndDate = null;
+
+      genderSelect.addEventListener('change', () => {
+        if (genderSelect.value === 'female') {
+          periodTrackerSection.classList.remove('hidden');
+        } else {
+          periodTrackerSection.classList.add('hidden');
+          calendarContainer.classList.add('hidden');
+          periodToggle.checked = false;
+        }
+      });
+
+      periodToggle.addEventListener('change', () => {
+        if (periodToggle.checked) {
+            calendarContainer.classList.remove('hidden');
+            generateCalendar();
+        } else {
+            calendarContainer.classList.add('hidden');
+        }
+      });
+
+      // Calendar navigation
+      document.getElementById('prev-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        generateCalendar();
+      });
+
+      document.getElementById('next-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        generateCalendar();
+      });
+
+      function generateCalendar() {
+        const calendarGrid = document.getElementById('calendar-grid');
+        const monthYearDisplay = document.getElementById('current-month-year');
+
+        // Update month/year display
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+        monthYearDisplay.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+        // Clear previous calendar
+        calendarGrid.innerHTML = '';
+
+        // Get first day of month and last day of month
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const today = new Date();
+
+        // Add empty cells for days before first day of month
+        for (let i = 0; i < firstDay.getDay(); i++) {
+          const emptyCell = document.createElement('div');
+          calendarGrid.appendChild(emptyCell);
+        }
+
+        // Add days of the month
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+          const dayCell = document.createElement('button');
+          const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
+          dayCell.className = 'h-10 w-10 flex items-center justify-center rounded-full transition-colors';
+          dayCell.textContent = day;
+
+          // Check if date is in the future (block future dates)
+          if (cellDate > today) {
+            dayCell.classList.add('text-gray-300', 'cursor-not-allowed');
+            dayCell.disabled = true;
+          } else {
+            dayCell.classList.add('hover:bg-blue-100', 'text-gray-900');
+
+            // Check if date is selected
+            if (selectedStartDate && cellDate.toDateString() === selectedStartDate.toDateString()) {
+              dayCell.classList.add('bg-blue-500', 'text-white');
+            } else if (selectedEndDate && cellDate.toDateString() === selectedEndDate.toDateString()) {
+              dayCell.classList.add('bg-blue-500', 'text-white');
+            } else if (selectedStartDate && selectedEndDate &&
+                      cellDate >= selectedStartDate && cellDate <= selectedEndDate) {
+              dayCell.classList.add('bg-blue-200', 'text-blue-900');
+            }
+
+            dayCell.addEventListener('click', () => selectDate(cellDate));
+          }
+
+          calendarGrid.appendChild(dayCell);
+        }
+
+        updateSelectedDatesDisplay();
+      }
+
+      function selectDate(date) {
+        if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+          // Start new selection
+          selectedStartDate = date;
+          selectedEndDate = null;
+        } else if (date < selectedStartDate) {
+          // Selected date is before start date, make it the new start
+          selectedStartDate = date;
+        } else {
+          // Set as end date
+          selectedEndDate = date;
+        }
+
+        generateCalendar();
+      }
+
+      function updateSelectedDatesDisplay() {
+        const selectedDatesSpan = document.getElementById('selected-dates');
+
+        if (!selectedStartDate) {
+          selectedDatesSpan.textContent = 'None';
+          return;
+        }
+
+        const startFormatted = selectedStartDate.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric'
+        });
+
+        if (!selectedEndDate) {
+          selectedDatesSpan.textContent = `${startFormatted} (start date)`;
+        } else {
+          const endFormatted = selectedEndDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+          });
+          selectedDatesSpan.textContent = `${startFormatted} - ${endFormatted}`;
+        }
+      }
+
+      function submitPage2() {
+        const formData = {
+          nickname: document.getElementById('nickname').value,
+          name: document.getElementById('name').value,
+          age: document.getElementById('age').value,
+          gender: document.getElementById('gender').value,
+          period_tracking: periodToggle.checked,
+          period_start_date: selectedStartDate ? selectedStartDate.toISOString().split('T')[0] : null,
+          period_end_date: selectedEndDate ? selectedEndDate.toISOString().split('T')[0] : null
+        };
+
+        fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.href = '/page/3';
+          } else {
+            alert('Error registering user');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error registering user');
+        });
+      }
+    </script>
+
+</body></html>

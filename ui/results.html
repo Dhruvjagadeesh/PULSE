@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>PULSE - Your Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --brand-primary: #8b5cf6;
+            --brand-secondary: #f3e8ff;
+            --brand-accent: #a855f7;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background-primary: #faf5ff;
+            --background-secondary: #ffffff;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            --gradient-secondary: linear-gradient(135deg, #c084fc 0%, #d946ef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pulse-animation {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+            to { box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
+        }
+
+        .emotion-circle {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .result-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-primary)]">
+    <!-- Background decorative elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full opacity-10 blur-3xl floating-animation"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-400 to-indigo-400 rounded-full opacity-10 blur-3xl floating-animation" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-5 blur-3xl floating-animation" style="animation-delay: -6s;"></div>
+    </div>
+
+    <div class="relative flex flex-col min-h-screen">
+        <!-- Enhanced Header -->
+        <header class="sticky top-0 z-20 glass-effect shadow-lg">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center shadow-lg pulse-animation">
+                        <span class="material-symbols-outlined text-white text-lg">celebration</span>
+                    </div>
+
+                    <div class="flex-1 text-center">
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                            Your Emotional Insights
+                        </h1>
+                        <p class="text-sm text-gray-500 mt-1">Personalized analysis complete</p>
+                    </div>
+
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg pulse-animation" style="animation-delay: -1s;">
+                        <span class="material-symbols-outlined text-white text-lg">insights</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 relative">
+            <!-- Loading Screen -->
+            <div id="loading" class="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-10">
+                <div class="text-center max-w-md mx-auto p-8">
+                    <div class="relative mb-8">
+                        <div class="w-24 h-24 mx-auto bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-2xl pulse-animation">
+                            <span class="material-symbols-outlined text-white text-3xl">psychology</span>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border-4 border-green-200 animate-spin"></div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Analyzing Your Emotions</h3>
+                    <p class="text-gray-600 mb-4">Processing your responses and generating personalized insights<span class="loading-dots"></span></p>
+                    <div class="flex justify-center space-x-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                        <div class="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="results-container" class="hidden max-w-4xl mx-auto px-4 py-8">
+                <!-- Emotion Display Section -->
+                <div class="text-center mb-12 fade-in">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mb-6 shadow-lg">
+                        <span class="material-symbols-outlined text-white text-3xl">sentiment_satisfied</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Emotional State</h2>
+
+                    <div class="glass-effect rounded-3xl p-8 mb-8 shadow-xl">
+                        <div class="flex flex-col items-center space-y-6">
+                            <div id="emotion-color" class="emotion-circle w-40 h-40 rounded-full shadow-2xl border-8 border-white"></div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">You are feeling</h3>
+                                <p id="emotion-text" class="text-xl font-semibold text-gray-600">Balanced</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Section -->
+                <div class="result-card glass-effect rounded-2xl p-8 mb-8 slide-in-up" data-aos="fade-up">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white">lightbulb</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Personalized Suggestions</h3>
+                    </div>
+                    <div id="suggestions-list" class="space-y-4">
+                        <!-- Suggestions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Tasks Section -->
+                <div class="result-card glass-effect rounded-2xl p-8 mb-8 slide-in-up" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white">task_alt</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Recommended Tasks</h3>
+                    </div>
+                    <div id="tasks-list" class="space-y-4">
+                        <!-- Tasks will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Reminders Section -->
+                <div class="result-card glass-effect rounded-2xl p-8 mb-8 slide-in-up" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white">schedule</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Productivity Reminders</h3>
+                    </div>
+                    <div id="reminders-list" class="space-y-4">
+                        <!-- Reminders will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="result-card glass-effect rounded-2xl p-8 mb-8 slide-in-up" data-aos="fade-up" data-aos-delay="600">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-white">analytics</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Your Statistics</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="stat-card rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2" id="dominant-emotion">N/A</div>
+                            <div class="text-sm text-gray-600">Dominant Emotion</div>
+                        </div>
+                        <div class="stat-card rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2" id="emotional-balance">N/A</div>
+                            <div class="text-sm text-gray-600">Emotional Balance</div>
+                        </div>
+                        <div class="stat-card rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2" id="productivity-score">N/A</div>
+                            <div class="text-sm text-gray-600">Productivity Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 slide-in-up" data-aos="fade-up" data-aos-delay="800">
+                    <button onclick="startNewSession()" class="btn-primary text-white font-semibold py-4 px-8 rounded-2xl shadow-xl flex-1">
+                        <span class="flex items-center justify-center space-x-3">
+                            <span class="material-symbols-outlined">refresh</span>
+                            <span>Start New Session</span>
+                        </span>
+                    </button>
+                    <button onclick="viewInsights()" class="bg-white border-2 border-gray-200 text-gray-700 font-semibold py-4 px-8 rounded-2xl shadow-lg hover:bg-gray-50 transition-all duration-300 flex-1">
+                        <span class="flex items-center justify-center space-x-3">
+                            <span class="material-symbols-outlined">bar_chart</span>
+                            <span>View Insights</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let analysisResults = {};
+
+        function loadResults() {
+            const results = localStorage.getItem('analysis_results');
+            if (!results) {
+                alert('No results found. Please complete the emotion check first.');
+                window.location.href = '/emotion-grid.html';
+                return;
+            }
+
+            try {
+                analysisResults = JSON.parse(results);
+                displayResults();
+            } catch (error) {
+                console.error('Error parsing results:', error);
+                alert('Error loading results');
+            }
+        }
+
+        function displayResults() {
+            // Initialize AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-out-cubic',
+                    once: true
+                });
+            }
+
+            // Set emotion color and text with animation
+            const emotionColor = document.getElementById('emotion-color');
+            const emotionText = document.getElementById('emotion-text');
+
+            const emotionColorValue = analysisResults.emotion_color || '#10B981';
+            const emotionTextValue = analysisResults.dominant_emotion || 'Balanced';
+
+            emotionColor.style.background = `linear-gradient(135deg, ${emotionColorValue}, ${adjustColor(emotionColorValue, -20)})`;
+            emotionText.textContent = emotionTextValue;
+
+            // Display suggestions with enhanced styling
+            const suggestionsContainer = document.getElementById('suggestions-list');
+            suggestionsContainer.innerHTML = '';
+            (analysisResults.suggestions || []).forEach((suggestion, index) => {
+                const suggestionDiv = document.createElement('div');
+                suggestionDiv.className = 'glass-effect rounded-xl p-4 hover:shadow-lg transition-all duration-300 fade-in';
+                suggestionDiv.style.animationDelay = `${index * 0.1}s`;
+                suggestionDiv.innerHTML = `
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+                            <span class="material-symbols-outlined text-white text-lg">lightbulb</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-gray-700 leading-relaxed">${suggestion}</p>
+                        </div>
+                    </div>
+                `;
+                suggestionsContainer.appendChild(suggestionDiv);
+            });
+
+            // Display tasks with enhanced styling
+            const tasksContainer = document.getElementById('tasks-list');
+            tasksContainer.innerHTML = '';
+            (analysisResults.tasks || []).forEach((task, index) => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'glass-effect rounded-xl p-4 hover:shadow-lg transition-all duration-300 fade-in';
+                taskDiv.style.animationDelay = `${index * 0.1}s`;
+
+                const priorityColor = task.priority === 'high' ? 'from-red-500 to-red-600' :
+                                    task.priority === 'medium' ? 'from-yellow-500 to-orange-500' : 'from-green-500 to-emerald-500';
+                const priorityTextColor = task.priority === 'high' ? 'text-red-600' :
+                                        task.priority === 'medium' ? 'text-yellow-600' : 'text-green-600';
+
+                taskDiv.innerHTML = `
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-r ${priorityColor} rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+                            <span class="material-symbols-outlined text-white text-lg">task_alt</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-gray-800 font-semibold mb-1">${task.task}</p>
+                            <div class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined text-sm ${priorityTextColor}">schedule</span>
+                                <p class="text-sm ${priorityTextColor} font-medium">${task.deadline}</p>
+                                <span class="px-2 py-1 bg-gray-100 rounded-full text-xs font-medium ${priorityTextColor}">${task.priority} priority</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                tasksContainer.appendChild(taskDiv);
+            });
+
+            // Display reminders with enhanced styling
+            const remindersContainer = document.getElementById('reminders-list');
+            remindersContainer.innerHTML = '';
+            (analysisResults.reminders || []).forEach((reminder, index) => {
+                const reminderDiv = document.createElement('div');
+                reminderDiv.className = 'glass-effect rounded-xl p-4 hover:shadow-lg transition-all duration-300 fade-in';
+                reminderDiv.style.animationDelay = `${index * 0.1}s`;
+                reminderDiv.innerHTML = `
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+                            <span class="material-symbols-outlined text-white text-lg">schedule</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-gray-700 leading-relaxed">${reminder}</p>
+                        </div>
+                    </div>
+                `;
+                remindersContainer.appendChild(reminderDiv);
+            });
+
+            // Display stats with enhanced styling
+            document.getElementById('dominant-emotion').textContent = analysisResults.stats?.dominant_emotion || 'Balanced';
+            document.getElementById('emotional-balance').textContent = analysisResults.stats?.emotional_balance || '75%';
+            document.getElementById('productivity-score').textContent = analysisResults.stats?.productivity_score || '82/100';
+
+            // Add some animation to stats
+            const statElements = document.querySelectorAll('.stat-card .text-3xl');
+            statElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.2}s`;
+                element.classList.add('fade-in');
+            });
+
+            // Show results with animation
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results-container').classList.remove('hidden');
+
+                // Trigger AOS animations
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+            }, 1000);
+        }
+
+        function adjustColor(color, amount) {
+            // Simple color adjustment function
+            const usePound = color[0] === '#';
+            const col = usePound ? color.slice(1) : color;
+
+            const num = parseInt(col, 16);
+            let r = (num >> 16) + amount;
+            let g = (num >> 8 & 0x00FF) + amount;
+            let b = (num & 0x0000FF) + amount;
+
+            r = r > 255 ? 255 : r < 0 ? 0 : r;
+            g = g > 255 ? 255 : g < 0 ? 0 : g;
+            b = b > 255 ? 255 : b < 0 ? 0 : b;
+
+            return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16);
+        }
+
+        function startNewSession() {
+            // Clear stored data and start over
+            localStorage.removeItem('question_answers');
+            localStorage.removeItem('analysis_results');
+            window.location.href = '/';
+        }
+
+        function viewInsights() {
+            // Navigate to insights page (you can implement this later)
+            alert('Insights page coming soon!');
+        }
+
+        // Load results when page loads
+        document.addEventListener('DOMContentLoaded', loadResults);
+    </script>
+</body>
+</html>
